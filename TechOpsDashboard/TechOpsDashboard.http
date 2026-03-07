@@ -1,0 +1,6 @@
+@TechOpsDashboard_HostAddress = http://localhost:5086
+
+GET {{TechOpsDashboard_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
