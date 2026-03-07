@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C76C8704-6FFE-AFBD-2091-9FCA017A8DF8}|TechOpsDashboard\\TechOpsDashboard.csproj|c:\\users\\youhanna\\source\\repos\\techopsdashboard\\techopsdashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C76C8704-6FFE-AFBD-2091-9FCA017A8DF8}|TechOpsDashboard\\TechOpsDashboard.csproj|solutionrelative:techopsdashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\Program.cs",
+              "RelativeDocumentMoniker": "TechOpsDashboard\\Program.cs",
+              "ToolTip": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\Program.cs",
+              "RelativeToolTip": "TechOpsDashboard\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBsAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-07T10:14:06.268Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
