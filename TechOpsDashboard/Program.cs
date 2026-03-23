@@ -1,49 +1,49 @@
 using Microsoft.EntityFrameworkCore;
 using TechOpsDashboard.Data;
 using TechOpsDashboard.Hubs;
+using TechOpsDashboard.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ── Services ────────────────────────────────────────────────────────────────
+builder.Services.AddControllers();
+builder.Services.AddSignalR();
+
 builder.Services.AddDbContext<TechMetricsContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("TechMetricsDb")));
 
-builder.Services.AddHostedService<MetricsSimulationService>();
-
-builder.Services.AddSignalR();
+// Register the background metrics simulator
+builder.Services.AddHostedService<MetricsCollectorService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowReact",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:3000")
-                  .AllowAnyHeader()
-                  .AllowAnyMethod()
-                  .AllowCredentials();
-        });
+    options.AddDefaultPolicy(policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:3000",   // React dev server
+                "https://localhost:3000"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();           // Required for SignalR
+    });
 });
-
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
-
+// ── Middleware ───────────────────────────────────────────────────────────────
+app.UseCors();
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
 app.MapHub<MetricsHub>("/metricshub");
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.UseCors("AllowReact");
-
-app.MapControllers();
+// Auto-apply migrations on startup so you don't have to run dotnet ef manually
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<TechMetricsContext>();
+    db.Database.Migrate();
+}
 
 app.Run();

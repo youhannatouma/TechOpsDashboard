@@ -117,10 +117,10 @@ C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\staticwebassets.development.json
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\staticwebassets.build.endpoints.json
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\swae.build.ex.cache
-C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsD.CEDB3E80.Up2Date
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsDashboard.dll
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\refint\TechOpsDashboard.dll
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsDashboard.pdb
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsDashboard.genruntimeconfig.cache
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\ref\TechOpsDashboard.dll
+C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsDashboard.sourcelink.json

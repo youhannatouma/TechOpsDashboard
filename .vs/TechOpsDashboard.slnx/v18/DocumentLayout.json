@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C76C8704-6FFE-AFBD-2091-9FCA017A8DF8}|TechOpsDashboard\\TechOpsDashboard.csproj|c:\\users\\youhanna\\source\\repos\\techopsdashboard\\techopsdashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C76C8704-6FFE-AFBD-2091-9FCA017A8DF8}|TechOpsDashboard\\TechOpsDashboard.csproj|solutionrelative:techopsdashboard\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\dashboard\\src\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:dashboard\\src\\App.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,14 +19,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\Program.cs",
-              "RelativeDocumentMoniker": "TechOpsDashboard\\Program.cs",
-              "ToolTip": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\Program.cs",
-              "RelativeToolTip": "TechOpsDashboard\\Program.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBsAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-07T10:14:06.268Z",
+              "Title": "App.js",
+              "DocumentMoniker": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\dashboard\\src\\App.js",
+              "RelativeDocumentMoniker": "dashboard\\src\\App.js",
+              "ToolTip": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\dashboard\\src\\App.js",
+              "RelativeToolTip": "dashboard\\src\\App.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-03-23T21:26:01.664Z",
               "EditorCaption": ""
             }
           ]

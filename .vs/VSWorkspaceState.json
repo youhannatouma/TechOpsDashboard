@@ -1,7 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\dashboard\\src",
+    "\\TechOpsDashboard",
+    "\\TechOpsDashboard\\Properties",
+    "\\TechOpsDashboard\\Services"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\TechOpsDashboard\\Properties\\launchSettings.json",
   "PreviewInSolutionExplorer": false
 }
