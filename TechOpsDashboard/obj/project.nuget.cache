@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oJHPdsZbYPA=",
+  "dgSpecHash": "wH2JC5q2uP8=",
   "success": true,
-  "projectFilePath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\TechOpsDashboard.csproj",
+  "projectFilePath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\TechOpsDashboard.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\youhanna\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\youhanna\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.3\\microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",

@@ -17,23 +17,20 @@ builder.Services.AddHostedService<MetricsCollectorService>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("Frontend", policy =>
     {
         policy
-            .WithOrigins(
-                "http://localhost:3000",   // React dev server
-                "https://localhost:3000"
-            )
+            .WithOrigins("http://localhost:3000")
             .AllowAnyHeader()
             .AllowAnyMethod()
-            .AllowCredentials();           // Required for SignalR
+            .AllowCredentials();
     });
 });
 
 var app = builder.Build();
 
 // ── Middleware ───────────────────────────────────────────────────────────────
-app.UseCors();
+app.UseCors("Frontend");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();

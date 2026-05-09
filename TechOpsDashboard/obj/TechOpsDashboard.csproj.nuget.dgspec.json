@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\TechOpsDashboard.csproj": {}
+    "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\TechOpsDashboard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\TechOpsDashboard.csproj": {
+    "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\TechOpsDashboard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\TechOpsDashboard.csproj",
+        "projectUniqueName": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\TechOpsDashboard.csproj",
         "projectName": "TechOpsDashboard",
-        "projectPath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\TechOpsDashboard.csproj",
+        "projectPath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\TechOpsDashboard.csproj",
         "packagesPath": "C:\\Users\\youhanna\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\obj\\",
+        "outputPath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

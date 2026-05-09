@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import * as signalR from "@microsoft/signalr";
 
 // ── Config ───────────────────────────────────────────────────────────────────
-const SIGNALR_URL = process.env.REACT_APP_SIGNALR_URL || "https://localhost:7260";
+const SIGNALR_URL = process.env.REACT_APP_SIGNALR_URL || "http://localhost:5086";
 const MAX_METRICS = 50;
 
 // ── Formatters ───────────────────────────────────────────────────────────────
@@ -136,8 +136,21 @@ export default function App() {
     const connRef = useRef(null);
 
     useEffect(() => {
+        async function loadHistory() {
+            try {
+                const res = await fetch("http://localhost:5086/api/metrics?count=50");
+                const data = await res.json();
+
+                setMetrics(data.reverse());
+            } catch (err) {
+                console.error("Failed loading metrics", err);
+            }
+        }
+
+        loadHistory();
+
         const conn = new signalR.HubConnectionBuilder()
-            .withUrl(`${SIGNALR_URL}/metricshub`)
+            .withUrl('http://localhost:5086/metricshub')
             .withAutomaticReconnect()
             .configureLogging(signalR.LogLevel.Warning)
             .build();
@@ -151,11 +164,30 @@ export default function App() {
             .then(() => setStatus("live"))
             .catch(() => setStatus("error"));
 
-        conn.on("ReceiveMetric", metric => {
+        const handleMetric = metric => {
             setMetrics(prev => [metric, ...prev.slice(0, MAX_METRICS - 1)]);
+        };
+
+        conn.onclose(err => {
+            console.error("SignalR CLOSED:", err);
+            setStatus("error");
         });
 
-        return () => conn.stop();
+        conn.onreconnecting(err => {
+            console.warn("SignalR reconnecting:", err);
+            setStatus("connecting");
+        });
+
+        conn.onreconnected(id => {
+            console.log("SignalR reconnected:", id);
+            setStatus("live");
+        });
+
+        conn.on("ReceiveMetric", handleMetric);
+        return () => {
+            conn.off("ReceiveMetric", handleMetric);
+            conn.stop();
+        };
     }, []);
 
     const m = metrics[0] ?? null;

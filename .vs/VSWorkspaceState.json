@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
+    "\\dashboard",
     "\\dashboard\\src",
-    "\\TechOpsDashboard",
-    "\\TechOpsDashboard\\Properties",
-    "\\TechOpsDashboard\\Services"
+    "\\TechOpsDashboard\\Controllers"
   ],
-  "SelectedNode": "\\TechOpsDashboard\\Properties\\launchSettings.json",
+  "SelectedNode": "\\dashboard",
   "PreviewInSolutionExplorer": false
 }

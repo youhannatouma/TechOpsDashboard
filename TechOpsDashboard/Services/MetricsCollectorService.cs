@@ -6,12 +6,7 @@ using TechOpsDashboard.Models;
 
 namespace TechOpsDashboard.Services
 {
-    /// <summary>
-    /// Runs in the background, generates realistic simulated metrics every 2 seconds,
-    /// persists them to the database, and broadcasts them to all SignalR clients.
-    /// Replace the Generate() method with real system calls (e.g. PerformanceCounter
-    /// on Windows, /proc/* on Linux) when you have a real target to monitor.
-    /// </summary>
+
     public class MetricsCollectorService : BackgroundService
     {
         private readonly IServiceScopeFactory _scopeFactory;
@@ -72,7 +67,6 @@ namespace TechOpsDashboard.Services
             }
         }
 
-        // ── Simulation ──────────────────────────────────────────────────────
 
         private TechMetric Generate() => new()
         {
@@ -97,17 +91,13 @@ namespace TechOpsDashboard.Services
             ThreadCount = (int)Walk(_prev.ThreadCount, 800, 4000, delta: 50, drift: 0),
         };
 
-        /// <summary>
-        /// Random walk with mean reversion: nudges the value by up to `delta` each tick,
-        /// with a gentle `drift` pulling it back toward a realistic midpoint.
-        /// </summary>
+
         private static double Walk(double current, double min, double max, double delta, double drift)
         {
             var step = (_rng.NextDouble() * 2 - 1) * delta + drift;
             return Math.Clamp(current + step, min, max);
         }
 
-        // ── Persistence ─────────────────────────────────────────────────────
 
         private async Task PersistAsync(TechMetric metric, CancellationToken ct)
         {
