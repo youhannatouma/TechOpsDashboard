@@ -1,3 +1,4 @@
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,6 +12,43 @@ namespace TechOpsDashboard.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "MarketIndices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Symbol = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<double>(type: "double precision", nullable: false),
+                    Change = table.Column<double>(type: "double precision", nullable: false),
+                    ChangePercent = table.Column<double>(type: "double precision", nullable: false),
+                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MarketIndices", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PortfolioHoldings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Symbol = table.Column<string>(type: "text", nullable: false),
+                    CompanyName = table.Column<string>(type: "text", nullable: false),
+                    Shares = table.Column<int>(type: "integer", nullable: false),
+                    CostBasis = table.Column<double>(type: "double precision", nullable: false),
+                    CurrentPrice = table.Column<double>(type: "double precision", nullable: false),
+                    PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PortfolioHoldings", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "StockQuotes",
                 columns: table => new
@@ -36,25 +74,6 @@ namespace TechOpsDashboard.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PortfolioHoldings",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Symbol = table.Column<string>(type: "text", nullable: false),
-                    CompanyName = table.Column<string>(type: "text", nullable: false),
-                    Shares = table.Column<int>(type: "integer", nullable: false),
-                    CostBasis = table.Column<double>(type: "double precision", nullable: false),
-                    CurrentPrice = table.Column<double>(type: "double precision", nullable: false),
-                    PurchaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastUpdated = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PortfolioHoldings", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "WatchlistItems",
                 columns: table => new
                 {
@@ -72,40 +91,22 @@ namespace TechOpsDashboard.Migrations
                 {
                     table.PrimaryKey("PK_WatchlistItems", x => x.Id);
                 });
-
-            migrationBuilder.CreateTable(
-                name: "MarketIndices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Symbol = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Value = table.Column<double>(type: "double precision", nullable: false),
-                    Change = table.Column<double>(type: "double precision", nullable: false),
-                    ChangePercent = table.Column<double>(type: "double precision", nullable: false),
-                    Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MarketIndices", x => x.Id);
-                });
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "StockQuotes");
+                name: "MarketIndices");
 
             migrationBuilder.DropTable(
                 name: "PortfolioHoldings");
 
             migrationBuilder.DropTable(
-                name: "WatchlistItems");
+                name: "StockQuotes");
 
             migrationBuilder.DropTable(
-                name: "MarketIndices");
+                name: "WatchlistItems");
         }
     }
 }
