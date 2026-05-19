@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TechOpsDashboard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b9292c3e66eb263f406441d499ef65830395c94d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f806e256b0c3de13236943c360619d76c30089b5")]
 [assembly: System.Reflection.AssemblyProductAttribute("TechOpsDashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TechOpsDashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
