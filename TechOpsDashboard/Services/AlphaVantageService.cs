@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Http;
 using System.Text.Json;
 using TechOpsDashboard.Models;
@@ -9,6 +10,7 @@ namespace TechOpsDashboard.Services
         Task<StockQuote> GetStockQuoteAsync(string symbol);
         Task<List<MarketIndex>> GetMarketIndicesAsync();
         Task<List<StockQuote>> SearchStocksAsync(string query);
+        Task<List<StockHistoryPoint>> GetStockHistoryAsync(string symbol);
     }
 
     public class AlphaVantageService : IStockDataService
@@ -144,17 +146,34 @@ namespace TechOpsDashboard.Services
                 {
                     var enumerator = matches.EnumerateArray().Take(5);
 
-                    foreach (var match in enumerator)
+                            foreach (var match in enumerator)
                     {
                         var symbol = GetStringProperty(match, "1. symbol");
                         var name = GetStringProperty(match, "2. name");
 
-                        // Fetch full quote for each match
                         var quote = await GetStockQuoteAsync(symbol);
                         if (quote != null)
                         {
                             quote.CompanyName = name;
                             results.Add(quote);
+                        }
+                        else
+                        {
+                            results.Add(new StockQuote
+                            {
+                                Symbol = symbol,
+                                CompanyName = name,
+                                Price = 0,
+                                PreviousClose = 0,
+                                Change = 0,
+                                ChangePercent = 0,
+                                Volume = 0,
+                                High = 0,
+                                Low = 0,
+                                Open = 0,
+                                Timestamp = DateTime.UtcNow,
+                                QuoteTime = DateTime.UtcNow,
+                            });
                         }
 
                         await Task.Delay(300); // Rate limiting
@@ -167,6 +186,43 @@ namespace TechOpsDashboard.Services
             }
 
             return results;
+        }
+
+        public async Task<List<StockHistoryPoint>> GetStockHistoryAsync(string symbol)
+        {
+            try
+            {
+                var url = $"{BaseUrl}?function=TIME_SERIES_DAILY_ADJUSTED&symbol={symbol}&apikey={_apiKey}&outputsize=compact";
+                var response = await _httpClient.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                var json = await response.Content.ReadAsStringAsync();
+                using var doc = JsonDocument.Parse(json);
+                var root = doc.RootElement;
+
+                if (!root.TryGetProperty("Time Series (Daily)", out var series))
+                {
+                    _logger.LogWarning("No historical data found for symbol {symbol}", symbol);
+                    return new List<StockHistoryPoint>();
+                }
+
+                var history = series.EnumerateObject()
+                    .Select(entry => new StockHistoryPoint
+                    {
+                        Date = DateTime.ParseExact(entry.Name, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                        Close = ParseDouble(GetStringProperty(entry.Value, "4. close")),
+                    })
+                    .OrderBy(point => point.Date)
+                    .TakeLast(30)
+                    .ToList();
+
+                return history;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching history for {symbol}", symbol);
+                return new List<StockHistoryPoint>();
+            }
         }
 
         private static string GetStringProperty(JsonElement element, string propertyName)

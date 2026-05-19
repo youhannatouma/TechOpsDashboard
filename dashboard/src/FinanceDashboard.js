@@ -36,48 +36,6 @@ function PriceChange({ change, changePercent }) {
     );
 }
 
-function StockCard({ quote }) {
-    if (!quote) return null;
-
-    return (
-        <div
-            style={{
-                background: "var(--surface)",
-                border: "1px solid var(--border)",
-                borderRadius: 8,
-                padding: 14,
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-                minWidth: 200,
-            }}
-        >
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
-                <div>
-                    <div style={{ fontWeight: 700, fontSize: 14, color: "var(--text)" }}>
-                        {quote.symbol}
-                    </div>
-                    <div style={{ fontSize: 10, color: "var(--muted)", textTransform: "uppercase" }}>
-                        {quote.companyName}
-                    </div>
-                </div>
-            </div>
-
-            <div style={{ fontSize: 16, fontWeight: 700, color: "var(--blue)" }}>
-                {formatCurrency(quote.price)}
-            </div>
-
-            <PriceChange change={quote.change} changePercent={quote.changePercent} />
-
-            <div style={{ fontSize: 10, color: "var(--muted)", display: "flex", gap: 10, flexWrap: "wrap" }}>
-                <span>H: {formatCurrency(quote.high)}</span>
-                <span>L: {formatCurrency(quote.low)}</span>
-                <span>V: {formatNumber(quote.volume)}</span>
-            </div>
-        </div>
-    );
-}
-
 function MarketIndicesSection({ indices }) {
     return (
         <div style={{
@@ -275,6 +233,141 @@ function WatchlistSection({ watchlist, onRemove }) {
     );
 }
 
+function StockChart({ history }) {
+    if (!history.length) return null;
+
+    const width = 600;
+    const height = 220;
+    const padding = 24;
+    const minValue = Math.min(...history.map((point) => point.close));
+    const maxValue = Math.max(...history.map((point) => point.close));
+    const range = maxValue - minValue || 1;
+    const points = history
+        .map((point, index) => {
+            const x = padding + (index / (history.length - 1)) * (width - padding * 2);
+            const y = height - padding - ((point.close - minValue) / range) * (height - padding * 2);
+            return `${x},${y}`;
+        })
+        .join(" ");
+
+    return (
+        <div style={{ marginTop: 20, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 12, padding: 16 }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
+                <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: ".14em", color: "var(--muted)" }}>
+                    Price history (last {history.length} days)
+                </div>
+                <div style={{ fontSize: 10, color: "var(--muted)" }}>
+                    {history[0].date} → {history[history.length - 1].date}
+                </div>
+            </div>
+            <svg width="100%" viewBox={`0 0 ${width} ${height}`} style={{ overflow: "visible" }}>
+                <defs>
+                    <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="rgba(61,155,255,0.35)" />
+                        <stop offset="100%" stopColor="rgba(61,155,255,0.02)" />
+                    </linearGradient>
+                </defs>
+                <polyline
+                    fill="none"
+                    stroke="var(--green)"
+                    strokeWidth="2"
+                    points={points}
+                />
+                <polygon
+                    points={`${points} ${width - padding},${height - padding} ${padding},${height - padding}`}
+                    fill="url(#chartGradient)"
+                    opacity="0.5"
+                />
+                <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke="rgba(255,255,255,0.08)" />
+                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.08)" />
+            </svg>
+        </div>
+    );
+}
+
+function SelectedStockSection({ quote, history, onAddToWatchlist, onAddToPortfolio }) {
+    if (!quote) {
+        return (
+            <div style={{
+                background: "var(--surface)",
+                border: "1px solid var(--border)",
+                borderRadius: 8,
+                padding: 18,
+                marginBottom: 20,
+            }}>
+                <div style={{ color: "var(--muted)", fontSize: 12, textAlign: "center" }}>
+                    Search for a stock and click a result to see a chart, price details, and action buttons.
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div style={{
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: 8,
+            padding: 18,
+            marginBottom: 20,
+        }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, flexWrap: "wrap" }}>
+                <div>
+                    <div style={{ fontSize: 22, fontWeight: 800, color: "var(--text)" }}>{quote.symbol}</div>
+                    <div style={{ fontSize: 11, color: "var(--muted)", marginTop: 4 }}>{quote.companyName}</div>
+                    <div style={{ fontSize: 28, fontWeight: 700, color: "var(--blue)", marginTop: 12 }}>
+                        {formatCurrency(quote.price)}
+                    </div>
+                    <PriceChange change={quote.change} changePercent={quote.changePercent} />
+                </div>
+
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+                    <button
+                        onClick={() => onAddToWatchlist(quote)}
+                        style={{
+                            padding: "10px 16px",
+                            borderRadius: 8,
+                            border: "1px solid var(--border)",
+                            background: "rgba(61,155,255,0.12)",
+                            color: "var(--text)",
+                            cursor: "pointer",
+                            fontSize: 11,
+                            fontWeight: 700,
+                        }}
+                    >
+                        Add to Watchlist
+                    </button>
+                    <button
+                        onClick={() => onAddToPortfolio(quote)}
+                        style={{
+                            padding: "10px 16px",
+                            borderRadius: 8,
+                            border: "1px solid var(--border)",
+                            background: "rgba(0,229,160,0.12)",
+                            color: "var(--text)",
+                            cursor: "pointer",
+                            fontSize: 11,
+                            fontWeight: 700,
+                        }}
+                    >
+                        Add to Portfolio
+                    </button>
+                </div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: 12, marginTop: 18, fontSize: 11, color: "var(--muted)" }}>
+                <div>Open: {formatCurrency(quote.open)}</div>
+                <div>High: {formatCurrency(quote.high)}</div>
+                <div>Low: {formatCurrency(quote.low)}</div>
+                <div>Volume: {formatNumber(quote.volume)}</div>
+                <div>Previous Close: {formatCurrency(quote.previousClose)}</div>
+                <div>Quote Time: {new Date(quote.quoteTime).toLocaleString()}</div>
+            </div>
+
+            <StockChart history={history} />
+        </div>
+    );
+}
+
 function SearchBox({ onSearch }) {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
@@ -335,6 +428,9 @@ function SearchBox({ onSearch }) {
             />
 
             {loading && <div style={{ color: "var(--muted)", fontSize: 10 }}>Searching...</div>}
+            {!loading && query.length >= 2 && results.length === 0 && (
+                <div style={{ color: "var(--muted)", fontSize: 10 }}>No matches found yet. Try a different ticker or company name.</div>
+            )}
 
             {results.length > 0 && (
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 8 }}>
@@ -368,7 +464,9 @@ export default function FinanceDashboard() {
     const [indices, setIndices] = useState([]);
     const [portfolio, setPortfolio] = useState([]);
     const [watchlist, setWatchlist] = useState([]);
-    const [recentQuotes, setRecentQuotes] = useState([]);
+    const [selectedQuote, setSelectedQuote] = useState(null);
+    const [history, setHistory] = useState([]);
+    const [detailMessage, setDetailMessage] = useState("");
 
     useEffect(() => {
         async function loadData() {
@@ -398,27 +496,93 @@ export default function FinanceDashboard() {
         return () => clearInterval(interval);
     }, []);
 
-    const handleAddToWatchlist = async (symbol) => {
+    const loadStockDetails = async (symbol) => {
+        if (!symbol) return;
+        setDetailMessage("Loading stock details...");
+
+        try {
+            const quoteRes = await fetch(`${API_URL}/api/stocks/quote/${encodeURIComponent(symbol)}`);
+            if (!quoteRes.ok) {
+                setDetailMessage(`Unable to load quote for ${symbol}`);
+                setSelectedQuote(null);
+                setHistory([]);
+                return;
+            }
+
+            const quote = await quoteRes.json();
+            setSelectedQuote(quote);
+            setDetailMessage("");
+
+            const historyRes = await fetch(`${API_URL}/api/stocks/history/${encodeURIComponent(symbol)}`);
+            if (historyRes.ok) {
+                const historyData = await historyRes.json();
+                setHistory(historyData);
+            } else {
+                setHistory([]);
+            }
+        } catch (err) {
+            console.error("Error loading stock details:", err);
+            setDetailMessage("Unable to load the selected stock details. Try again later.");
+        }
+    };
+
+    const handleAddToWatchlist = async (quote) => {
+        if (!quote) return;
+
         try {
             const res = await fetch(`${API_URL}/api/stocks/watchlist`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    symbol,
-                    companyName: "",
-                    currentPrice: 0,
-                    change: 0,
-                    changePercent: 0,
+                    symbol: quote.symbol,
+                    companyName: quote.companyName,
+                    currentPrice: quote.price,
+                    change: quote.change,
+                    changePercent: quote.changePercent,
                 }),
             });
 
             if (res.ok) {
                 const item = await res.json();
-                setWatchlist([...watchlist, item]);
-                alert(`Added ${symbol} to watchlist!`);
+                setWatchlist((previous) => [...previous, item]);
+                alert(`Added ${quote.symbol} to watchlist!`);
+            } else {
+                const errorText = await res.text();
+                console.error("Watchlist add failed:", errorText);
             }
         } catch (err) {
             console.error("Error adding to watchlist:", err);
+        }
+    };
+
+    const handleAddToPortfolio = async (quote) => {
+        if (!quote) return;
+
+        try {
+            const res = await fetch(`${API_URL}/api/stocks/portfolio`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    symbol: quote.symbol,
+                    companyName: quote.companyName,
+                    shares: 1,
+                    costBasis: quote.price,
+                    currentPrice: quote.price,
+                    purchaseDate: new Date().toISOString(),
+                    lastUpdated: new Date().toISOString(),
+                }),
+            });
+
+            if (res.ok) {
+                const holding = await res.json();
+                setPortfolio((previous) => [...previous.filter((h) => h.symbol !== holding.symbol), holding]);
+                alert(`Added ${quote.symbol} to portfolio!`);
+            } else {
+                const errorText = await res.text();
+                console.error("Portfolio add failed:", errorText);
+            }
+        } catch (err) {
+            console.error("Error adding to portfolio:", err);
         }
     };
 
@@ -469,7 +633,18 @@ export default function FinanceDashboard() {
                 </div>
             </header>
 
-            <SearchBox onSearch={handleAddToWatchlist} />
+            <SearchBox onSearch={loadStockDetails} />
+            {detailMessage && (
+                <div style={{ color: "var(--muted)", fontSize: 11, marginBottom: 14, textAlign: "center" }}>
+                    {detailMessage}
+                </div>
+            )}
+            <SelectedStockSection
+                quote={selectedQuote}
+                history={history}
+                onAddToWatchlist={handleAddToWatchlist}
+                onAddToPortfolio={handleAddToPortfolio}
+            />
             <MarketIndicesSection indices={indices} />
             <PortfolioSection holdings={portfolio} onRemove={handleRemoveFromPortfolio} />
             <WatchlistSection watchlist={watchlist} onRemove={handleRemoveFromWatchlist} />

@@ -83,6 +83,17 @@ namespace TechOpsDashboard.Controllers
         }
 
         /// <summary>
+        /// GET /api/stocks/history/{symbol}
+        /// Get historical stock prices for a symbol
+        /// </summary>
+        [HttpGet("history/{symbol}")]
+        public async Task<IActionResult> GetHistory(string symbol)
+        {
+            var history = await _stockService.GetStockHistoryAsync(symbol.ToUpper());
+            return Ok(history);
+        }
+
+        /// <summary>
         /// GET /api/stocks/portfolio
         /// Get all portfolio holdings
         /// </summary>

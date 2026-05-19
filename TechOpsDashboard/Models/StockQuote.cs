@@ -51,4 +51,10 @@ namespace TechOpsDashboard.Models
         public double ChangePercent { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     }
+
+    public class StockHistoryPoint
+    {
+        public DateTime Date { get; set; }
+        public double Close { get; set; }
+    }
 }
