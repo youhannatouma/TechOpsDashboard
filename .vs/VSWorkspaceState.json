@@ -3,8 +3,9 @@
     "",
     "\\dashboard",
     "\\dashboard\\src",
+    "\\TechOpsDashboard",
     "\\TechOpsDashboard\\Controllers"
   ],
-  "SelectedNode": "\\dashboard",
+  "SelectedNode": "\\TechOpsDashboard\\Controllers\\MetricsController.cs",
   "PreviewInSolutionExplorer": false
 }

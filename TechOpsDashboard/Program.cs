@@ -15,6 +15,9 @@ builder.Services.AddDbContext<TechMetricsContext>(options =>
 // Register the background metrics simulator
 builder.Services.AddHostedService<MetricsCollectorService>();
 
+// Register stock data service
+builder.Services.AddHttpClient<IStockDataService, AlphaVantageService>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>

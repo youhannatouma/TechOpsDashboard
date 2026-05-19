@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "wH2JC5q2uP8=",
+  "dgSpecHash": "8IKVaURMnug=",
   "success": true,
-  "projectFilePath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\techopsdashboard\\TechOpsDashboard.csproj",
+  "projectFilePath": "C:\\Users\\youhanna\\source\\repos\\TechOpsDashboard\\TechOpsDashboard\\TechOpsDashboard.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\youhanna\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\youhanna\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.3\\microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
@@ -37,7 +37,10 @@
     "C:\\Users\\youhanna\\.nuget\\packages\\system.composition.convention\\9.0.0\\system.composition.convention.9.0.0.nupkg.sha512",
     "C:\\Users\\youhanna\\.nuget\\packages\\system.composition.hosting\\9.0.0\\system.composition.hosting.9.0.0.nupkg.sha512",
     "C:\\Users\\youhanna\\.nuget\\packages\\system.composition.runtime\\9.0.0\\system.composition.runtime.9.0.0.nupkg.sha512",
-    "C:\\Users\\youhanna\\.nuget\\packages\\system.composition.typedparts\\9.0.0\\system.composition.typedparts.9.0.0.nupkg.sha512"
+    "C:\\Users\\youhanna\\.nuget\\packages\\system.composition.typedparts\\9.0.0\\system.composition.typedparts.9.0.0.nupkg.sha512",
+    "C:\\Users\\youhanna\\.nuget\\packages\\system.configuration.configurationmanager\\8.0.0\\system.configuration.configurationmanager.8.0.0.nupkg.sha512",
+    "C:\\Users\\youhanna\\.nuget\\packages\\system.diagnostics.performancecounter\\8.0.0\\system.diagnostics.performancecounter.8.0.0.nupkg.sha512",
+    "C:\\Users\\youhanna\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
   ],
   "logs": []
 }

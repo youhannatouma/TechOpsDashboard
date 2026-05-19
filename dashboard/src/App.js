@@ -3,6 +3,7 @@ import * as signalR from "@microsoft/signalr";
 
 // ── Config ───────────────────────────────────────────────────────────────────
 const SIGNALR_URL = process.env.REACT_APP_SIGNALR_URL || "http://localhost:5086";
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5086";
 const MAX_METRICS = 50;
 
 // ── Formatters ───────────────────────────────────────────────────────────────
@@ -130,7 +131,7 @@ function Section({ title, icon, children }) {
 }
 
 // ── Main App ─────────────────────────────────────────────────────────────────
-export default function App() {
+export default function TechOpsDashboard() {
     const [metrics, setMetrics] = useState([]);
     const [status, setStatus] = useState("connecting");
     const connRef = useRef(null);
@@ -138,7 +139,7 @@ export default function App() {
     useEffect(() => {
         async function loadHistory() {
             try {
-                const res = await fetch("http://localhost:5086/api/metrics?count=50");
+                const res = await fetch(`${API_URL}/api/metrics?count=50`);
                 const data = await res.json();
 
                 setMetrics(data.reverse());
@@ -150,7 +151,7 @@ export default function App() {
         loadHistory();
 
         const conn = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5086/metricshub')
+            .withUrl(`${SIGNALR_URL}/metricshub`)
             .withAutomaticReconnect()
             .configureLogging(signalR.LogLevel.Warning)
             .build();

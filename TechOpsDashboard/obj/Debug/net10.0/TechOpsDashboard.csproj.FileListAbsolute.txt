@@ -124,3 +124,7 @@ C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsDashboard.genruntimeconfig.cache
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\ref\TechOpsDashboard.dll
 C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\obj\Debug\net10.0\TechOpsDashboard.sourcelink.json
+C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
+C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\bin\Debug\net10.0\System.Diagnostics.PerformanceCounter.dll
+C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\bin\Debug\net10.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\youhanna\source\repos\TechOpsDashboard\TechOpsDashboard\bin\Debug\net10.0\runtimes\win\lib\net8.0\System.Diagnostics.PerformanceCounter.dll

@@ -1,8 +1,11 @@
 import * as signalR from '@microsoft/signalr';
 
-const API_URL = "http://localhost:5086";
+// Use environment variable or fallback to localhost
+const SIGNALR_URL = process.env.REACT_APP_SIGNALR_URL || "http://localhost:5086";
+
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl("http://localhost:5086/metricshub")    .configureLogging(signalR.LogLevel.Information)
+    .withUrl(`${SIGNALR_URL}/metricshub`)
+    .configureLogging(signalR.LogLevel.Information)
     .withAutomaticReconnect()
     .build();
 
