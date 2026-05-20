@@ -1,6 +1,5 @@
 import * as signalR from '@microsoft/signalr';
 
-// Use environment variable or fallback to localhost
 const SIGNALR_URL = process.env.REACT_APP_SIGNALR_URL || "http://localhost:5086";
 
 const connection = new signalR.HubConnectionBuilder()

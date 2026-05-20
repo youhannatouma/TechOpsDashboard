@@ -1,12 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import * as signalR from "@microsoft/signalr";
 
-// ── Config ───────────────────────────────────────────────────────────────────
 const SIGNALR_URL = process.env.REACT_APP_SIGNALR_URL || "http://localhost:5086";
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5086";
 const MAX_METRICS = 50;
 
-// ── Formatters ───────────────────────────────────────────────────────────────
 function fmtBytes(b) {
     if (b >= 1e9) return (b / 1e9).toFixed(1) + " GB/s";
     if (b >= 1e6) return (b / 1e6).toFixed(1) + " MB/s";
@@ -58,7 +56,6 @@ function Sparkline({ data, color, max = 100, width = 100, height = 28 }) {
     );
 }
 
-// ── Gauge ────────────────────────────────────────────────────────────────────
 function Gauge({ value, label, unit = "%", warn = 70, crit = 90, max = 100 }) {
     const color = statusColor(value / max * 100, warn, crit);
     const pct = Math.min(value / max, 1);
@@ -112,7 +109,6 @@ function StatRow({ label, value, unit, history, color, max, warn, crit, isBytes 
     );
 }
 
-// ── Section card ─────────────────────────────────────────────────────────────
 function Section({ title, icon, children }) {
     return (
         <div style={{
@@ -130,7 +126,6 @@ function Section({ title, icon, children }) {
     );
 }
 
-// ── Main App ─────────────────────────────────────────────────────────────────
 export default function TechOpsDashboard() {
     const [metrics, setMetrics] = useState([]);
     const [status, setStatus] = useState("connecting");
@@ -193,7 +188,6 @@ export default function TechOpsDashboard() {
 
     const m = metrics[0] ?? null;
 
-    // Build history arrays (oldest → newest for sparklines)
     const hist = key => metrics.map(x => x[key]).reverse();
 
     const statusMeta = {
