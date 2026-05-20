@@ -45,7 +45,6 @@ namespace TechOpsDashboard.Services
             _config = config;
             _currentProcess = Process.GetCurrentProcess();
 
-            // Initialize Windows Performance Counters (Windows only)
             if (OperatingSystem.IsWindows())
             {
                 try
