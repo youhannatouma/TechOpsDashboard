@@ -223,7 +223,7 @@ namespace TechOpsDashboard.Services
                 _logger.LogWarning(ex, "Failed to get disk usage");
             }
 
-            return 50; // Default fallback
+            return 50; 
         }
 
         private double GetDiskReadBytes()
@@ -237,7 +237,7 @@ namespace TechOpsDashboard.Services
                 catch { }
             }
 
-            return 2_500_000; // Default fallback
+            return 2_500_000; 
         }
 
         private double GetDiskWriteBytes()
@@ -251,7 +251,7 @@ namespace TechOpsDashboard.Services
                 catch { }
             }
 
-            return 800_000; // Default fallback
+            return 800_000; 
         }
 
         private (double bytesIn, double bytesOut) GetNetworkBytesRate()

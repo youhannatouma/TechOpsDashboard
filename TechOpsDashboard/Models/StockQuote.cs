@@ -3,18 +3,18 @@ namespace TechOpsDashboard.Models
     public class StockQuote
     {
         public int Id { get; set; }
-        public string Symbol { get; set; }          // e.g., "AAPL", "MSFT"
-        public string CompanyName { get; set; }     // e.g., "Apple Inc."
-        public double Price { get; set; }           // Current price
-        public double PreviousClose { get; set; }   // Previous close price
-        public double Change { get; set; }          // Price change ($)
-        public double ChangePercent { get; set; }   // Percent change (%)
-        public long Volume { get; set; }            // Trading volume
-        public double High { get; set; }            // Day high
-        public double Low { get; set; }             // Day low
-        public double Open { get; set; }            // Day open
-        public DateTime Timestamp { get; set; } = DateTime.UtcNow;  // When this quote was fetched
-        public DateTime QuoteTime { get; set; }     // When the exchange provided this quote
+        public string Symbol { get; set; }         
+        public string CompanyName { get; set; }     
+        public double Price { get; set; }           
+        public double PreviousClose { get; set; }   
+        public double Change { get; set; }          
+        public double ChangePercent { get; set; }   
+        public long Volume { get; set; }            
+        public double High { get; set; }            
+        public double Low { get; set; }             
+        public double Open { get; set; }            
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow; 
+        public DateTime QuoteTime { get; set; }     
     }
 
     public class PortfolioHolding
@@ -23,8 +23,8 @@ namespace TechOpsDashboard.Models
         public string Symbol { get; set; }
         public string CompanyName { get; set; }
         public int Shares { get; set; }
-        public double CostBasis { get; set; }       // Price paid per share
-        public double CurrentPrice { get; set; }    // Current market price
+        public double CostBasis { get; set; }      
+        public double CurrentPrice { get; set; }    
         public DateTime PurchaseDate { get; set; }
         public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
     }
