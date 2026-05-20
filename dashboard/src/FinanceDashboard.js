@@ -242,19 +242,47 @@ function StockChart({ history }) {
     const minValue = Math.min(...history.map((point) => point.close));
     const maxValue = Math.max(...history.map((point) => point.close));
     const range = maxValue - minValue || 1;
-    const points = history
-        .map((point, index) => {
-            const x = padding + (index / (history.length - 1)) * (width - padding * 2);
-            const y = height - padding - ((point.close - minValue) / range) * (height - padding * 2);
-            return `${x},${y}`;
-        })
-        .join(" ");
+    const points = history.map((point, index) => {
+        const x = padding + (index / (history.length - 1)) * (width - padding * 2);
+        const y = height - padding - ((point.close - minValue) / range) * (height - padding * 2);
+        return { x, y };
+    });
+
+    const smoothPath = (() => {
+        if (points.length === 1) {
+            const p = points[0];
+            return `M ${p.x.toFixed(1)} ${p.y.toFixed(1)}`;
+        }
+
+        if (points.length === 2) {
+            return `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)} L ${points[1].x.toFixed(1)} ${points[1].y.toFixed(1)}`;
+        }
+
+        let d = `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`;
+        for (let i = 1; i < points.length - 1; i += 1) {
+            const prev = points[i - 1];
+            const curr = points[i];
+            const next = points[i + 1];
+            const midX = ((curr.x + next.x) / 2).toFixed(1);
+            const midY = ((curr.y + next.y) / 2).toFixed(1);
+            d += ` Q ${curr.x.toFixed(1)} ${curr.y.toFixed(1)} ${midX} ${midY}`;
+        }
+
+        const last = points[points.length - 1];
+        const prev = points[points.length - 2];
+        d += ` Q ${prev.x.toFixed(1)} ${prev.y.toFixed(1)} ${last.x.toFixed(1)} ${last.y.toFixed(1)}`;
+        return d;
+    })();
+
+    const areaPath = `${smoothPath} L ${points[points.length - 1].x.toFixed(1)} ${height - padding} L ${points[0].x.toFixed(1)} ${height - padding} Z`;
+
+    const tickValues = [minValue, minValue + range * 0.5, maxValue];
 
     return (
         <div style={{ marginTop: 20, background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 12, padding: 16 }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
                 <div style={{ fontSize: 10, textTransform: "uppercase", letterSpacing: ".14em", color: "var(--muted)" }}>
-                    Price history (last {history.length} days)
+                    Price history (last {history.length} points)
                 </div>
                 <div style={{ fontSize: 10, color: "var(--muted)" }}>
                     {history[0].date} → {history[history.length - 1].date}
@@ -267,19 +295,20 @@ function StockChart({ history }) {
                         <stop offset="100%" stopColor="rgba(61,155,255,0.02)" />
                     </linearGradient>
                 </defs>
-                <polyline
-                    fill="none"
-                    stroke="var(--green)"
-                    strokeWidth="2"
-                    points={points}
-                />
-                <polygon
-                    points={`${points} ${width - padding},${height - padding} ${padding},${height - padding}`}
-                    fill="url(#chartGradient)"
-                    opacity="0.5"
-                />
-                <line x1={padding} y1={padding} x2={padding} y2={height - padding} stroke="rgba(255,255,255,0.08)" />
-                <line x1={padding} y1={height - padding} x2={width - padding} y2={height - padding} stroke="rgba(255,255,255,0.08)" />
+                {tickValues.map((value, index) => {
+                    const y = height - padding - ((value - minValue) / range) * (height - padding * 2);
+                    return (
+                        <g key={index}>
+                            <line x1={padding} y1={y} x2={width - padding} y2={y} stroke="rgba(255,255,255,0.08)" />
+                            <text x={padding - 8} y={y + 3} textAnchor="end" fill="var(--muted)" fontSize="9">
+                                {formatCurrency(value)}
+                            </text>
+                        </g>
+                    );
+                })}
+                <path d={areaPath} fill="url(#chartGradient)" opacity="0.55" />
+                <path d={smoothPath} fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx={points[points.length - 1].x} cy={points[points.length - 1].y} r="4" fill="var(--green)" />
             </svg>
         </div>
     );

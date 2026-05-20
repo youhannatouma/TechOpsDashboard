@@ -34,9 +34,7 @@ namespace TechOpsDashboard.Services
             _apiKey = config["AlphaVantage:ApiKey"] ?? "demo";
         }
 
-        /// <summary>
-        /// Fetch a single stock quote from Alpha Vantage
-        /// </summary>
+
         public async Task<StockQuote> GetStockQuoteAsync(string symbol)
         {
             try
@@ -79,9 +77,7 @@ namespace TechOpsDashboard.Services
             }
         }
 
-        /// <summary>
-        /// Fetch major market indices
-        /// </summary>
+
         public async Task<List<MarketIndex>> GetMarketIndicesAsync()
         {
             var indices = new List<MarketIndex>();
@@ -112,7 +108,6 @@ namespace TechOpsDashboard.Services
                         });
                     }
 
-                    // Rate limiting: Alpha Vantage free tier is 5 requests per minute
                     await Task.Delay(300);
                 }
                 catch (Exception ex)
@@ -124,10 +119,7 @@ namespace TechOpsDashboard.Services
             return indices;
         }
 
-        /// <summary>
-        /// Search for stocks matching a query
-        /// Uses Symbol Search from Alpha Vantage
-        /// </summary>
+
         public async Task<List<StockQuote>> SearchStocksAsync(string query)
         {
             var results = new List<StockQuote>();

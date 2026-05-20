@@ -16,10 +16,7 @@ namespace TechOpsDashboard.Controllers
             _context = context;
         }
 
-        /// <summary>
-        /// GET /api/metrics?count=50
-        /// Returns the most recent N metrics, newest first.
-        /// </summary>
+
         [HttpGet]
         public async Task<IActionResult> GetLatestMetrics([FromQuery] int count = 50)
         {
@@ -31,10 +28,7 @@ namespace TechOpsDashboard.Controllers
             return Ok(metrics);
         }
 
-        /// <summary>
-        /// GET /api/metrics/range?from=2026-03-23T00:00:00Z&to=2026-03-23T23:59:59Z
-        /// Returns metrics within a UTC time range.
-        /// </summary>
+
         [HttpGet("range")]
         public async Task<IActionResult> GetRange(
             [FromQuery] DateTime from,

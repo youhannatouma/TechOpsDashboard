@@ -21,10 +21,7 @@ namespace TechOpsDashboard.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// GET /api/stocks/quote/{symbol}
-        /// Get real-time stock quote
-        /// </summary>
+
         [HttpGet("quote/{symbol}")]
         public async Task<IActionResult> GetQuote(string symbol)
         {
@@ -32,7 +29,6 @@ namespace TechOpsDashboard.Controllers
             if (quote == null)
                 return NotFound();
 
-            // Cache the quote in database
             var existing = await _context.StockQuotes.FirstOrDefaultAsync(q => q.Symbol == symbol.ToUpper());
             if (existing != null)
             {
@@ -44,10 +40,7 @@ namespace TechOpsDashboard.Controllers
             return Ok(quote);
         }
 
-        /// <summary>
-        /// GET /api/stocks/search?q=apple
-        /// Search for stocks
-        /// </summary>
+
         [HttpGet("search")]
         public async Task<IActionResult> Search([FromQuery] string q)
         {
@@ -58,16 +51,12 @@ namespace TechOpsDashboard.Controllers
             return Ok(results);
         }
 
-        /// <summary>
-        /// GET /api/stocks/indices
-        /// Get major market indices (S&P 500, Nasdaq, Dow)
-        /// </summary>
+
         [HttpGet("indices")]
         public async Task<IActionResult> GetIndices()
         {
             var indices = await _stockService.GetMarketIndicesAsync();
             
-            // Cache indices
             foreach (var index in indices)
             {
                 var existing = await _context.MarketIndices.FirstOrDefaultAsync(i => i.Symbol == index.Symbol);
@@ -82,10 +71,7 @@ namespace TechOpsDashboard.Controllers
             return Ok(indices);
         }
 
-        /// <summary>
-        /// GET /api/stocks/history/{symbol}
-        /// Get historical stock prices for a symbol
-        /// </summary>
+
         [HttpGet("history/{symbol}")]
         public async Task<IActionResult> GetHistory(string symbol)
         {
@@ -93,10 +79,7 @@ namespace TechOpsDashboard.Controllers
             return Ok(history);
         }
 
-        /// <summary>
-        /// GET /api/stocks/portfolio
-        /// Get all portfolio holdings
-        /// </summary>
+
         [HttpGet("portfolio")]
         public async Task<IActionResult> GetPortfolio()
         {
@@ -104,21 +87,16 @@ namespace TechOpsDashboard.Controllers
             return Ok(holdings);
         }
 
-        /// <summary>
-        /// POST /api/stocks/portfolio
-        /// Add a stock to portfolio
-        /// </summary>
+
         [HttpPost("portfolio")]
         public async Task<IActionResult> AddToPortfolio([FromBody] PortfolioHolding holding)
         {
             if (string.IsNullOrWhiteSpace(holding.Symbol))
                 return BadRequest("Symbol is required");
 
-            // Check if already in portfolio
             var existing = await _context.PortfolioHoldings.FirstOrDefaultAsync(h => h.Symbol == holding.Symbol.ToUpper());
             if (existing != null)
             {
-                // Update instead of adding
                 existing.Shares = holding.Shares;
                 existing.CostBasis = holding.CostBasis;
                 existing.LastUpdated = DateTime.UtcNow;
@@ -134,10 +112,7 @@ namespace TechOpsDashboard.Controllers
             return CreatedAtAction(nameof(GetPortfolio), holding);
         }
 
-        /// <summary>
-        /// DELETE /api/stocks/portfolio/{id}
-        /// Remove a stock from portfolio
-        /// </summary>
+
         [HttpDelete("portfolio/{id}")]
         public async Task<IActionResult> RemoveFromPortfolio(int id)
         {
@@ -150,10 +125,7 @@ namespace TechOpsDashboard.Controllers
             return NoContent();
         }
 
-        /// <summary>
-        /// GET /api/stocks/watchlist
-        /// Get watchlist items
-        /// </summary>
+
         [HttpGet("watchlist")]
         public async Task<IActionResult> GetWatchlist()
         {
@@ -161,10 +133,7 @@ namespace TechOpsDashboard.Controllers
             return Ok(items);
         }
 
-        /// <summary>
-        /// POST /api/stocks/watchlist
-        /// Add to watchlist
-        /// </summary>
+
         [HttpPost("watchlist")]
         public async Task<IActionResult> AddToWatchlist([FromBody] WatchlistItem item)
         {
@@ -182,10 +151,7 @@ namespace TechOpsDashboard.Controllers
             return CreatedAtAction(nameof(GetWatchlist), item);
         }
 
-        /// <summary>
-        /// DELETE /api/stocks/watchlist/{id}
-        /// Remove from watchlist
-        /// </summary>
+
         [HttpDelete("watchlist/{id}")]
         public async Task<IActionResult> RemoveFromWatchlist(int id)
         {
