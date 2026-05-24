@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using TechOpsDashboard.Data;
 using TechOpsDashboard.Hubs;
 using TechOpsDashboard.Models;
+using System.Linq;
 
 namespace TechOpsDashboard.Services
 {
@@ -368,7 +369,13 @@ namespace TechOpsDashboard.Services
                 }
 
                 var idle = parts[3];
-                var total = parts.Sum();
+
+                ulong total = 0;
+
+                foreach (var part in parts)
+                {
+                    total += part;
+                }
 
                 if (_lastSystemUserTick == 0 && _lastSystemKernelTick == 0)
                 {

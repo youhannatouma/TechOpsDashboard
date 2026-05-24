@@ -2,10 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\dashboard",
-    "\\dashboard\\src",
     "\\TechOpsDashboard",
     "\\TechOpsDashboard\\Controllers"
   ],
-  "SelectedNode": "\\TechOpsDashboard\\TechOpsDashboard.csproj",
+  "SelectedNode": "\\TechOpsDashboard\\Controllers\\StocksController.cs",
   "PreviewInSolutionExplorer": false
 }

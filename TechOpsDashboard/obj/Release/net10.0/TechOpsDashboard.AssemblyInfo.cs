@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TechOpsDashboard")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3552e792be84731447e203062e7f14f6624daac9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eeaaa483c575da38409bca87968959686c166cf8")]
 [assembly: System.Reflection.AssemblyProductAttribute("TechOpsDashboard")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TechOpsDashboard")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
